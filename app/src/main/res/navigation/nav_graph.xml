@@ -7,12 +7,12 @@
     app:startDestination="@id/moviesFragment">
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.androidgang.retrofitmoviesandcities.ui.movies.MoviesFragment"
+        android:name="com.androidgang.retrofitmoviesandcities.ui.movieDetails.MovieDetailsFragment"
         android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movie_details" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.androidgang.retrofitmoviesandcities.ui.news.NewsFragment"
+        android:name="com.androidgang.retrofitmoviesandcities.ui.newsDetails.NewsDetailsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news_details" />
 </navigation>
