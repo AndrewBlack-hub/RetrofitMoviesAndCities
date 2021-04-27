@@ -39,7 +39,8 @@
             android:layout_height="400dp"
             android:scaleType="matrix"
             app:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            card_view:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/singapore"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
