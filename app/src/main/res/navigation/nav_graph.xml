@@ -7,12 +7,38 @@
     app:startDestination="@id/moviesFragment">
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.androidgang.retrofitmoviesandcities.ui.movieDetails.MovieDetailsFragment"
-        android:label="fragment_movies"
-        tools:layout="@layout/fragment_movie_details" />
+        android:name="com.androidgang.retrofitmoviesandcities.ui.movies.MoviesFragment"
+        android:label="@string/movies"
+        tools:layout="@layout/fragment_movies" >
+        <action
+            android:id="@+id/action_moviesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsFragment"
+        android:name="com.androidgang.retrofitmoviesandcities.ui.news.NewsFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.androidgang.retrofitmoviesandcities.ui.movieDetails.MovieDetailsFragment"
+        android:label="fragment_movie_details"
+        tools:layout="@layout/fragment_movie_details" >
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailsFragment"
         android:name="com.androidgang.retrofitmoviesandcities.ui.newsDetails.NewsDetailsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news_details" />
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" >
+        <action
+            android:id="@+id/action_newsDetailsFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
 </navigation>

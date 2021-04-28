@@ -42,16 +42,6 @@
             card_view:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/singapore"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            card_view:layout_constraintBottom_toBottomOf="@+id/news_image"
-            card_view:layout_constraintEnd_toEndOf="@+id/news_image"
-            card_view:layout_constraintStart_toStartOf="@+id/news_image"
-            card_view:layout_constraintTop_toTopOf="@+id/news_image" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

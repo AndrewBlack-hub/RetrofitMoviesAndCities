@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_movies"
+        android:id="@+id/moviesFragment"
         android:icon="@drawable/round_movie_20"
         android:title="@string/movies"/>
     <item
-        android:id="@+id/navigation_news"
+        android:id="@+id/newsFragment"
         android:icon="@drawable/round_feed_20"
         android:title="@string/news"/>
 

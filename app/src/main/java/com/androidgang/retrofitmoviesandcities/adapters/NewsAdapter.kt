@@ -47,4 +47,10 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
             }
         }
     }
+
+    fun setList(list: ArrayList<NewsResponse.Result>) {
+        newsList.clear()
+        newsList.addAll(list)
+        notifyDataSetChanged()
+    }
 }

@@ -19,7 +19,7 @@ class MoviesResponse {
 
     @SerializedName("results")
     @Expose
-    var results: List<Result>? = null
+    var results: ArrayList<Result>? = null
 
     inner class Image {
         @SerializedName("image")
@@ -80,7 +80,7 @@ class MoviesResponse {
 
         @SerializedName("images")
         @Expose
-        var images: List<Image>? = null
+        var images: ArrayList<Image>? = null
 
         @SerializedName("poster")
         @Expose
