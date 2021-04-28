@@ -5,16 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidgang.retrofitmoviesandcities.R
+import com.androidgang.retrofitmoviesandcities.model.MoviesResponse
 import com.androidgang.retrofitmoviesandcities.model.NewsResponse
 import com.bumptech.glide.Glide
 
 class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
 
     private val newsList: ArrayList<NewsResponse.Result> = arrayListOf()
+
+    interface OnNewsClickListener {
+        fun onNewsClick(news: NewsResponse.Result)
+    }
+
+    var onNewsClickListener: OnNewsClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsHolder {
         return NewsHolder(
@@ -25,7 +31,10 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
     override fun onBindViewHolder(holder: NewsHolder, position: Int) {
         val news: NewsResponse.Result = newsList[position]
         holder.bind(news)
-        holder.loadImage(news, position)
+        holder.loadImage(news)
+        holder.itemView.setOnClickListener {
+            onNewsClickListener?.onNewsClick(news)
+        }
     }
 
     override fun getItemCount(): Int = newsList.size
@@ -38,9 +47,9 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
             textViewNews.text = news.title
         }
 
-        fun loadImage(news: NewsResponse.Result, position: Int) {
-            if (news.images.isNullOrEmpty()) {
-                val urlImage = news.images?.get(position)?.image
+        fun loadImage(news: NewsResponse.Result) {
+            if (!(news.images.isNullOrEmpty())) {
+                val urlImage = news.images?.get(0)?.image
                 Glide.with(context)
                     .load(urlImage)
                     .into(imageNews)
@@ -48,9 +57,9 @@ class NewsAdapter(private val context: Context) : RecyclerView.Adapter<NewsAdapt
         }
     }
 
-    fun setList(list: ArrayList<NewsResponse.Result>) {
+    fun setList(list: ArrayList<NewsResponse.Result>?) {
         newsList.clear()
-        newsList.addAll(list)
+        list?.let { newsList.addAll(it) }
         notifyDataSetChanged()
     }
 }

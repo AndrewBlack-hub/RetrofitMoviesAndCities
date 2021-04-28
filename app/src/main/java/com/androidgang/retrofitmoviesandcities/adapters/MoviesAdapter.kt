@@ -20,6 +20,12 @@ class MoviesAdapter(private val context: Context) : RecyclerView.Adapter<MoviesA
 
     private val moviesList: ArrayList<MoviesResponse.Result> = arrayListOf()
 
+    interface OnMovieClickListener {
+        fun onMovieClick(movie: MoviesResponse.Result)
+    }
+
+    var onMovieClickListener: OnMovieClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesHolder {
         return MoviesHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_cell, parent, false))
     }
@@ -28,6 +34,9 @@ class MoviesAdapter(private val context: Context) : RecyclerView.Adapter<MoviesA
         val movie: MoviesResponse.Result = moviesList[position]
         holder.bind(movie)
         holder.loadImage(movie)
+        holder.itemView.setOnClickListener {
+            onMovieClickListener?.onMovieClick(movie)
+        }
     }
 
     override fun getItemCount(): Int = moviesList.size

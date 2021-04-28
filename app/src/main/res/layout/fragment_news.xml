@@ -9,7 +9,7 @@
     tools:context=".ui.news.NewsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_list"
+        android:id="@+id/rv_news_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
