@@ -29,9 +29,13 @@ class MoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMoviesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initialization()
         liveDataObservers()
-        return binding.root
     }
 
     private fun liveDataObservers() {
