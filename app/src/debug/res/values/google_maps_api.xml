@@ -1,0 +1,23 @@
+<resources>
+    <!--
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=AE:15:3D:A5:5D:58:6A:82:D0:D6:82:C0:57:63:59:99:AB:F3:BB:90%3Bcom.androidgang.retrofitmoviesandcities
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.androidgang.retrofitmoviesandcities.ui.place
+
+    SHA-1 certificate fingerprint:
+    AE:15:3D:A5:5D:58:6A:82:D0:D6:82:C0:57:63:59:99:AB:F3:BB:90
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA6jeK8q4mK45xqKhPbXF-EwNgXGkaPzSY</string>
+</resources>

@@ -9,5 +9,9 @@
         android:id="@+id/newsFragment"
         android:icon="@drawable/round_feed_20"
         android:title="@string/news"/>
+    <item
+        android:id="@+id/placesFragment"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="@string/places"/>
 
 </menu>

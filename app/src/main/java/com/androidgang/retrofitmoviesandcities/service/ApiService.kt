@@ -14,7 +14,7 @@ interface ApiService {
         @Query("text_format") textFormat: String
     ): Observable<MoviesResponse>
 
-    @GET("/public-api/v1.4/news/")
+    @GET("public-api/v1.4/news/")
     fun getNews(
         @Query("fields") fields: String,
         @Query("text_format") textFormat: String
