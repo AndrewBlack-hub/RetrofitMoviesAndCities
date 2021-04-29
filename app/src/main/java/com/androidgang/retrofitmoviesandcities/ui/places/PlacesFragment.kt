@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.androidgang.retrofitmoviesandcities.R
 import com.androidgang.retrofitmoviesandcities.model.PlacesResponse
-import com.androidgang.retrofitmoviesandcities.ui.placesDetails.PlaceDetailsFragmentDirections
-import com.androidgang.retrofitmoviesandcities.ui.placesDetails.PlacesViewModel
 import com.androidgang.retrofitmoviesandcities.utilits.TAG
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,6 +25,7 @@ class PlacesFragment : Fragment() {
     private lateinit var viewModel: PlacesViewModel
     private var placesResponse: PlacesResponse? = null
 
+
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -37,45 +36,20 @@ class PlacesFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val moscow = LatLng(55.7558,37.6173)
-        googleMap.addMarker(MarkerOptions().position(moscow).title("Marker in moscow"))
-//        googleMap.addMarker(
-//            MarkerOptions().position(LatLng(53.761220, 87.140152)).title("Marker in main place")
-//        )
-//        googleMap.addMarker(
-//            MarkerOptions().position(LatLng(53.758395, 87.135457)).title("Marker in hotel")
-//        )
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(moscow, 14f), 2500, null)
+        // координаты москвы
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(55.7558,37.6173), 14f), 2500, null)
         googleMap.uiSettings.isZoomControlsEnabled = true
-        //получаем список координат и размещаем их на карте в виде маркеров
-        if (placesResponse?.results != null) {
-            for (result in placesResponse?.results!!) {
-                if (result.coords != null) {
-                    val marker: Marker = googleMap.addMarker(
-                        MarkerOptions()
-                            .position(
-                                LatLng(
-                                    (result.coords!!.lat!!).toDouble(),
-                                    (result.coords!!.lon!!).toDouble()
-                                )
-                            )
-                    )
-                    marker.tag = result
-                }
-            }
-        }
 
-        googleMap.setOnMarkerClickListener { marker ->
-            val result: PlacesResponse.Result = (marker.tag) as PlacesResponse.Result
-            val action = PlacesFragmentDirections.actionPlacesFragmentToPlaceDetailsFragment(
-                image = result.images?.get(0)?.image,
-                title = result.title,
-                address = result.address,
-                description = result.bodyText
-            )
-            findNavController().navigate(action)
-            return@setOnMarkerClickListener true
-        }
+//        получаем список координат и размещаем их на карте в виде маркеров
+            //присваиваем данные внутри коллбэка, чтобы тут же ими воспользоваться
+        //при этом варианте данные будут присвоены placesResponse прямо в коллбэке
+        //это значит, что код в коллбэке использующий placesResponse завершится успешно!
+        viewModel.getLiveDataOnSuccess.observe(viewLifecycleOwner, Observer {
+            this.placesResponse = it as PlacesResponse
+            updateUIMap(googleMap)
+        })
+
+        onMarkerClick(googleMap)
     }
 
     override fun onCreateView(
@@ -94,6 +68,39 @@ class PlacesFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
     }
 
+    private fun updateUIMap(googleMap: GoogleMap) {
+        if (placesResponse?.results != null) {
+            for (result in placesResponse?.results!!) {
+                if (result.coords != null) {
+                    val marker: Marker = googleMap.addMarker(
+                        MarkerOptions()
+                            .position(
+                                LatLng(
+                                    (result.coords!!.lat!!).toDouble(),
+                                    (result.coords!!.lon!!).toDouble()
+                                )
+                            )
+                    )
+                    marker.tag = result
+                }
+            }
+        }
+    }
+
+    private fun onMarkerClick(googleMap: GoogleMap) {
+        googleMap.setOnMarkerClickListener { marker ->
+            val result: PlacesResponse.Result = (marker.tag) as PlacesResponse.Result
+            val action = PlacesFragmentDirections.actionPlacesFragmentToPlaceDetailsFragment(
+                image = result.images?.get(0)?.image,
+                title = result.title,
+                address = result.address,
+                description = result.bodyText
+            )
+            findNavController().navigate(action)
+            return@setOnMarkerClickListener true
+        }
+    }
+
     private fun initialization() {
         initViewModel()
         loadData()
@@ -107,14 +114,19 @@ class PlacesFragment : Fragment() {
         viewModel.getLiveDataOnError.observe(viewLifecycleOwner, Observer {
             Log.e(TAG, "getLiveDataOnError: ${it.message}")
         })
-
-        viewModel.getLiveDataOnSuccess.observe(viewLifecycleOwner, Observer {
-            this.placesResponse = it as PlacesResponse
-        })
+            //при этом варианте данные будут присвоены placesResponse, после коллбэка
+        //это значит, что код в коллбэке использующий placesResponse выбросит NPE
+//        viewModel.getLiveDataOnSuccess.observe(viewLifecycleOwner, Observer {
+//            this.placesResponse = it as PlacesResponse
+//        })
     }
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(this)[PlacesViewModel::class.java]
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.disposeObservers()
+    }
 }

@@ -85,5 +85,6 @@ class NewsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        viewModel.disposeObservers()
     }
 }
