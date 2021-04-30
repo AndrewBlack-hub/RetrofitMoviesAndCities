@@ -28,6 +28,7 @@ object NetworkService {
         .client(okHttp.apply {
             Interceptor { chain ->
                 val builder = chain.request().newBuilder()
+                //builder.header("Storefront-Api-Access-Key", "0719eaeec8274f538389e3044330a1fc")
                 return@Interceptor chain.proceed(builder.build())
             }
         }.build())
