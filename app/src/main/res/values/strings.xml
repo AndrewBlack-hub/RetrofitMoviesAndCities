@@ -6,4 +6,6 @@
     <string name="movie_description">Краткое описание</string>
     <string name="movie_starts">В главных ролях</string>
     <string name="watch_trailer">Посмотреть трейлер</string>
+    <string name="places">Places</string>
+    <string name="address">Адрес</string>
 </resources>

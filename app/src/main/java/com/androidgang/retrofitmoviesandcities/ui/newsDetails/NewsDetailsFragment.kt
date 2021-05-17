@@ -22,8 +22,12 @@ class NewsDetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentNewsDetailsBinding.inflate(layoutInflater, container, false)
-        updateUI()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        updateUI()
     }
 
     private fun updateUI() {

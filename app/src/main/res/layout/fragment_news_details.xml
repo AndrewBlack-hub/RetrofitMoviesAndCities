@@ -29,6 +29,7 @@
                     android:id="@+id/news_image"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    tools:src="@drawable/singapore"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

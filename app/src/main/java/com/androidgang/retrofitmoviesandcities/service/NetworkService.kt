@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkService {
 
-    private const val BASE_URL = "https://kudago.com/public-api/"
+    private const val BASE_URL = "https://kudago.com"
 
     private val logger = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -28,6 +28,7 @@ object NetworkService {
         .client(okHttp.apply {
             Interceptor { chain ->
                 val builder = chain.request().newBuilder()
+                //builder.header("Storefront-Api-Access-Key", "0719eaeec8274f538389e3044330a1fc")
                 return@Interceptor chain.proceed(builder.build())
             }
         }.build())
